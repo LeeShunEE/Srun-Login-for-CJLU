@@ -9,3 +9,5 @@ https://blog.csdn.net/qq_41797946/article/details/89417722
 如本地没有库则会报错，使用
 pip install (库名称) 
 安装库
+如何使用：
+把python代码和批处理文件放置在同一文件夹中运行
