@@ -148,11 +148,14 @@ def get_acid():
 
     init_gstatic=requests.get(url,headers=header)
     #print("init_text="+init_gstatic.text)
-    ac_id=re.search('id="ac_id" value="(.*?)"',init_gstatic.text).group(1)
+    try:
+        ac_id=re.search('id="ac_id" value="(.*?)"',init_gstatic.text).group(1)
+    except:
+        ac_id=re.search("index_(.*?).html",init_gstatic.text).group(1)
     
     #print(init_gstatic.text)
     print("____________________")
-    #print(ac_id)
+    print(ac_id)
 
     
     
