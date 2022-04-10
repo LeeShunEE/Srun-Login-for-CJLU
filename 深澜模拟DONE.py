@@ -138,7 +138,10 @@ type="1"
 callback="jQuery11240645308969735664_"+str(int(time.time()*1000))
 get_token_param={}
 ac_id =""
-
+proxy={
+        "http" : "",
+        "https" : ""
+    }
 def get_acid():
     url="http://www.gstatic.com"
     global ac_id
@@ -146,22 +149,22 @@ def get_acid():
         'User-Agent':"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36"
     }
 
-    init_gstatic=requests.get(url,headers=header)
-    #print("init_text="+init_gstatic.text)
+    init_gstatic=requests.get(url,headers=header,proxies=proxy)
+    print("____________________")
+    print("init_text="+init_gstatic.text)
     try:
         ac_id=re.search('id="ac_id" value="(.*?)"',init_gstatic.text).group(1)
     except:
         ac_id=re.search("index_(.*?).html",init_gstatic.text).group(1)
-    
     #print(init_gstatic.text)
     print("____________________")
-    print(ac_id)
+    print("ac_id="+ac_id)
 
     
     
 def init_getip():
     global ip,ac_id
-    init_res=requests.get(init_url,headers=header)
+    init_res=requests.get(init_url,headers=header,proxies=proxy)
     #print("init_res="+init_res.text)
     print("初始化获取ip")
     ip=re.search('id="user_ip" value="(.*?)"',init_res.text).group(1)
@@ -190,7 +193,7 @@ def init_print_token():
     global token
     try:
         print("______________________________________")
-        init_token=requests.get(get_challenge_api,params=get_token_param,headers=header)
+        init_token=requests.get(get_challenge_api,params=get_token_param,headers=header,proxies=proxy)
         print("token_init="+init_token.text)
         token=re.search('"challenge":"(.*?)"',init_token.text).group(1)
         
@@ -256,7 +259,7 @@ def login():
     }
     #print(srum_login_params)
 
-    RES=requests.get(srun_portal_api,params=srum_login_params,headers=header)     
+    RES=requests.get(srun_portal_api,params=srum_login_params,headers=header,proxies=proxy)     
     #print("LOG="+RES.text)
     login_status=re.search('"suc_msg":"(.*?)"',RES.text).group(1)
     #print(login_status)
@@ -285,7 +288,7 @@ def logout():
         '_':str(int(time.time()*1000))
     }
     print(str(params))
-    log_logout=requests.get(url,params=params,headers=header)
+    log_logout=requests.get(url,params=params,headers=header,proxies=proxy)
     print(log_logout.text)
     logout_status=re.search('"error_msg":"(.*?)"',log_logout.text).group(1)
     #print("logout_status="+logout_status)
