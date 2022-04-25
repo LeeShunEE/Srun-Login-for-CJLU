@@ -5,6 +5,6 @@
 chcp 65001
 pause
 
-python 深澜模拟DONE_logout.py
+python assets/logout.py
 
 pause
